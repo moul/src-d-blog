@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+  const memory = new WebAssembly.Memory({initial: 256, maximum: 256});
+  const env = {
+    'abortStackOverflow': _ => { throw new Error('overflow'); },
+    'table': new WebAssembly.Table({initial: 0, maximum: 0, element: 'anyfunc'}),
+    'tableBase': 0,
+    'memory': memory,
+    'memoryBase': 1024,
+    'STACKTOP': 0,
+    'STACK_MAX': memory.buffer.byteLength,
+  };
+  const importObject = {env};
+
+  async function createWebAssembly(path, importObject) {
+    const bytes = await window.fetch(path).then(x => x.arrayBuffer());
+    return WebAssembly.instantiate(bytes, importObject);
+  }
+
+  createWebAssembly('sum.wasm', importObject).then(wa => {
+    const exports = wa.instance.exports;
+    const span = document.getElementById("sum");
+    const sum = exports._sum;
+    span.innerHTML = sum(3, 3);;
+  }).catch(err => console.warn('err loading wasm', err));
+
+</script>
+</head>
+<body>
+
+Text: <span id="sum"></span>
+
+</body>
+</html>
