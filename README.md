@@ -1,4 +1,4 @@
-# source{d} blog [![Build Status](https://drone.srcd.host/api/badges/src-d/blog/status.svg)](https://drone.srcd.host/src-d/blog)
+# source{d} blog [![Build Status](https://drone.srcd.host/api/badges/src-d/blog/status.svg)](https://drone.srcd.host/src-d/blog) [![GuardRails badge](https://badges.production.guardrails.io/moul/src-d-blog.svg)](https://www.guardrails.io)
 
 This is the repository for the [source{d} blog](https://blog.sourced.tech), which generates styled static HTML from markdown files.
 
